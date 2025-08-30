@@ -128,7 +128,7 @@ class TestAccountService(TestCase):
         response = self.client.get(BASE_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(len(data),5)
+        self.assertEqual(len(data), 5)
 
     def test_read_account(self):
         account = AccountFactory()
@@ -164,14 +164,14 @@ class TestAccountService(TestCase):
 
         new_account = response.get_json()
         new_account["name"] = "Pal"
-        response = self.client.put(f"{BASE_URL}/{new_account['id']}", json = new_account)
+        response = self.client.put(f"{BASE_URL}/{new_account['id']}", json=new_account)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_acc = response.get_json()
         self.assertEqual(updated_acc["name"], "Pal")
 
     def test_update_account_not_found(self):
         account = AccountFactory()
-        response = self.client.put("/accounts/0", json = account.serialize())
+        response = self.client.put("/accounts/0", json=account.serialize())
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_delete_account(self):
